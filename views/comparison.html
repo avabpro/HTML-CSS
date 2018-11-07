@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <!-- Bootstrap cdn -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    
+        <nav class="navbar navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Navigation</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="data.html">Data</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Plots
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="plot_1.html">Max Temperature</a>
+                            <a class="dropdown-item" href="plot_2.html">Humidity</a>
+                            <a class="dropdown-item" href="plot_3.html">Cloudiness</a>
+                            <a class="dropdown-item" href="splot_4.html">Windspeed</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="comparison.html"> Comparison</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+    <div class="jumbotron">
+        <h1 class="display-4">Comparison</h1>
+        <p class="lead">Welcome to Comparing data!</p>
+        <hr class="my-4">
+    </div>
+	
+	 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="../js/main.js"></script> 
+
+    Lng & Max Temp
+    <div id="graph_1" style="width:600px;height:250px;"></div>
+    <script>
+        console.log(data);
+
+        //getting lng max temp for first graph
+        let graph_1_data = [];
+        for(var i = 0; i < data.length; i++)
+        {
+            //graph_1_data[0].push(data[i].Lng);
+            //graph_1_data[1].push(data[i]["Max Temp"]);
+            graph_1_data[data[i].Lng] = data[i]["Max Temp"];
+        }
+        graph_1_data = graph_1_data.sort();
+        //console.log(graph_1_data);
+        
+        let x = Object.keys(graph_1_data);
+        let y = Object.values(graph_1_data);
+
+        let graph_1 = document.querySelector("#graph_1");
+        
+        Plotly.plot(
+            graph_1,
+            [{
+                x: x,
+                y: y
+            }],
+            {
+                margin: { t: 0 } 
+            }
+        );
+
+        Plotly.BUILD;
+    </script>
+
+	Humidity
+    <div id="graph_2" style="width:600px;height:250px;"></div>
+    <script>
+        let graph_2_data = {};
+
+        for(var i = 0; i < data.length; i++)
+        {
+            let t1 = data[i]["Country"];
+            let t2 = data[i]["Humidity"];
+            // graph_2_data[i] = { };
+            // graph_2_data[i][""+t2] = t1;
+            graph_2_data[""+t2] = t1;
+        }
+         //graph_2_data = graph_2_data.sort();
+
+          /*let*/ x = Object.keys(graph_2_data).sort
+          ().reverse().splice(0,5);
+          /*let*/ y = Object.values(graph_2_data).sort().reverse().splice(0,5);
+
+          let graph_2 = document.querySelector("#graph_2");
+        
+        Plotly.plot(
+            graph_2,
+            [{
+                x: y,
+                y: x
+            }],
+            {
+                margin: { t: 0 } 
+            }
+        );
+
+        Plotly.BUILD;
+
+        
+        console.log(graph_2_data);
+        console.log(x);
+        console.log(y);
+
+    </script>
+
+	Cloudiness
+    <div id="graph_3" style="width:600px;height:250px;"></div>
+    <script>
+        let graph_3_data = {};
+
+        for(var i = 0; i < data.length; i++)
+        {
+            let t1 = data[i]["Country"];
+            let t2 = data[i]["Cloudiness"];
+            // graph_2_data[i] = { };
+            // graph_2_data[i][""+t2] = t1;
+            graph_3_data[""+t2] = t1;
+        }
+         //graph_2_data = graph_2_data.sort();
+
+          /*let*/ x = Object.keys(graph_3_data).sort
+          ().reverse().splice(0,5);
+          /*let*/ y = Object.values(graph_3_data).sort().reverse().splice(0,5);
+
+          let graph_3 = document.querySelector("#graph_3");
+        
+        Plotly.plot(
+            graph_3,
+            [{
+                x: y,
+                y: x
+            }],
+            {
+                margin: { t: 0 } 
+            }
+        );
+
+        Plotly.BUILD;
+
+        
+        console.log(graph_3_data);
+        console.log(x);
+        console.log(y);
+
+    </script>
+	
+	Wind Speed    
+	<div id="graph_4" style="width:600px;height:250px;"></div>
+    <script>
+        let graph_4_data = {};
+
+        for(var i = 0; i < data.length; i++)
+        {
+            let t1 = data[i]["Country"];
+            let t2 = data[i]["Wind Speed"];
+            // graph_2_data[i] = { };
+            // graph_2_data[i][""+t2] = t1;
+            graph_4_data[""+t2] = t1;
+        }
+         //graph_2_data = graph_2_data.sort();
+
+          /*let*/ x = Object.keys(graph_4_data).sort
+          ().reverse().splice(0,5);
+          /*let*/ y = Object.values(graph_4_data).sort().reverse().splice(0,5);
+
+          let graph_4 = document.querySelector("#graph_4");
+        
+        Plotly.plot(
+            graph_4,
+            [{
+                x: y,
+                y: x
+            }],
+            {
+                margin: { t: 0 } 
+            }
+        );
+
+        Plotly.BUILD;
+
+        
+        console.log(graph_4_data);
+        console.log(x);
+        console.log(y);
+
+    </script>
+
+</body>
+</html>
